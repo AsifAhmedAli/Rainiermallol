@@ -41,14 +41,50 @@ body * {
 .teams-map > .row > .col .box.left::before {
   position: absolute;
   content: "";
-  height: 145.5px;
+  height: 147.5px;
   width: 100%;
   right: -64px;
-  top: 62px;
+  top: 66px;
   z-index: 7;
   background-image: url("../images/top-1.svg");
   background-repeat: no-repeat;
   background-position: top right;
+}
+.teams-map > .row > .col .box.left::after {
+  position: absolute;
+  content: "";
+  height: 117.5px;
+  width: 100%;
+  right: -64px;
+  bottom: 208px;
+  z-index: 7;
+  background-image: url("../images/bottom-1.svg");
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+.teams-map > .row > .col .box.left .fando-card {
+  position: relative;
+  z-index: 8;
+}
+.teams-map > .row > .col .box.left-2 {
+  position: relative;
+}
+.teams-map > .row > .col .box.left-2::before {
+  position: absolute;
+  content: "";
+  height: 75.5px;
+  width: 100%;
+  right: -43px;
+  top: 212px;
+  z-index: 7;
+  background-image: url("../images/left-1.svg");
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+.teams-map > .row > .col .box.left-2 .fando-card {
+  margin-top: 180px;
+  position: relative;
+  z-index: 8;
 }
 .teams-map > .row > .col .box .title {
   font-size: 14px;
@@ -64,7 +100,7 @@ body * {
   margin-right: auto;
 }
 .teams-map > .row > .col .box .fando-card:not(:last-child) {
-  margin-bottom: 42px;
+  margin-bottom: 36px;
 }
 .teams-map > .row > .col .box .fando-card .fando-card-header {
   background-color: #213c73;
