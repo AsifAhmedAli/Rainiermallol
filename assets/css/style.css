@@ -86,6 +86,53 @@ body * {
   position: relative;
   z-index: 8;
 }
+.teams-map > .row > .col .box.right {
+  position: relative;
+}
+.teams-map > .row > .col .box.right::before {
+  position: absolute;
+  content: "";
+  height: 147.5px;
+  width: 108.5px;
+  left: -68px;
+  top: 66px;
+  z-index: 7;
+  background-image: url("../images/top-right-1.svg");
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+.teams-map > .row > .col .box.right-2 {
+  position: relative;
+}
+.teams-map > .row > .col .box.right-2::before {
+  position: absolute;
+  content: "";
+  height: 117.5px;
+  width: 100%;
+  right: -68px;
+  top: 211.5px;
+  z-index: 7;
+  background-image: url("../images/right-1.svg");
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+.teams-map > .row > .col .box.right-2::after {
+  position: absolute;
+  content: "";
+  height: 75.5px;
+  width: 80.5px;
+  left: -42px;
+  top: 212px;
+  z-index: 7;
+  background-image: url("../images/right-2.svg");
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+.teams-map > .row > .col .box.right-2 .fando-card {
+  margin-top: 180px;
+  position: relative;
+  z-index: 8;
+}
 .teams-map > .row > .col .box .title {
   font-size: 14px;
   font-weight: 500;
@@ -98,6 +145,8 @@ body * {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
+  z-index: 8;
 }
 .teams-map > .row > .col .box .fando-card:not(:last-child) {
   margin-bottom: 36px;
@@ -159,6 +208,49 @@ body * {
 .teams-map > .row > .col .box .fando-card .fando-card-footer b {
   display: block;
   font-weight: 800;
+}
+.teams-map > .row > .col .box.middle .fando-card {
+  max-width: 248px;
+}
+.teams-map > .row > .col .box.middle .fando-card.top-1 {
+  margin-bottom: 80px;
+  position: relative;
+}
+.teams-map > .row > .col .box.middle .fando-card.top-1::before {
+  position: absolute;
+  content: "";
+  height: 80px;
+  width: 2px;
+  left: 50%;
+  top: 100%;
+  z-index: 7;
+  border-left: 1px solid black;
+}
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .team {
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  height: auto;
+  max-height: unset;
+  border-bottom: none;
+}
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .team .team-name {
+  white-space: nowrap;
+}
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .team .team-color {
+  margin-right: 0;
+}
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .vs {
+  color: #213C73;
+  font-size: 12px;
+  font-weight: 800;
+  margin: 0 1rem;
 }
 
 /*# sourceMappingURL=style.css.map */
