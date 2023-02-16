@@ -48,9 +48,9 @@ body * {
             position: absolute;
             content: "";
             height: 117.5px;
-            width: 100%;
-            right: -64px;
-            bottom: 208px;
+            width: 110px;
+            right: -65px;
+            bottom: 230.5px;
             z-index: 7;
             background-image: url("../images/bottom-1.svg");
             background-repeat: no-repeat;
@@ -208,10 +208,11 @@ body * {
             }
           }
         }
-        &.middle{
-          .fando-card{
+        &.middle {
+          .fando-card {
             max-width: 248px;
-            &.top-1{
+            &.top-1,
+            &.top-2 {
               margin-bottom: 80px;
               position: relative;
               &::before {
@@ -222,14 +223,14 @@ body * {
                 left: 50%;
                 top: 100%;
                 z-index: 7;
-                border-left: 1px solid black
+                border-left: 1px solid black;
               }
-              .fando-card-body{
-                > div{
+              .fando-card-body {
+                > div {
                   display: flex;
                   align-items: center;
                   justify-content: center;
-                  .team{
+                  .team {
                     flex-direction: column;
                     align-items: center;
                     padding-top: 1rem;
@@ -237,18 +238,30 @@ body * {
                     height: auto;
                     max-height: unset;
                     border-bottom: none;
-                    .team-name{
+                    .team-name {
                       white-space: nowrap;
                     }
-                    .team-color{
+                    .team-color {
                       margin-right: 0;
                     }
                   }
-                  .vs{
-                    color: #213C73;
+                  .vs {
+                    color: #213c73;
                     font-size: 12px;
                     font-weight: 800;
                     margin: 0 1rem;
+                  }
+                }
+              }
+            }
+            &.top-2 {
+              &::before {
+                display: none;
+              }
+              .fando-card-body {
+                > div {
+                  &:first-child {
+                    border-bottom: 1px solid #dfdfdf;
                   }
                 }
               }

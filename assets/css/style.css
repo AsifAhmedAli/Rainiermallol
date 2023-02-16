@@ -54,9 +54,9 @@ body * {
   position: absolute;
   content: "";
   height: 117.5px;
-  width: 100%;
-  right: -64px;
-  bottom: 208px;
+  width: 110px;
+  right: -65px;
+  bottom: 230.5px;
   z-index: 7;
   background-image: url("../images/bottom-1.svg");
   background-repeat: no-repeat;
@@ -212,11 +212,11 @@ body * {
 .teams-map > .row > .col .box.middle .fando-card {
   max-width: 248px;
 }
-.teams-map > .row > .col .box.middle .fando-card.top-1 {
+.teams-map > .row > .col .box.middle .fando-card.top-1, .teams-map > .row > .col .box.middle .fando-card.top-2 {
   margin-bottom: 80px;
   position: relative;
 }
-.teams-map > .row > .col .box.middle .fando-card.top-1::before {
+.teams-map > .row > .col .box.middle .fando-card.top-1::before, .teams-map > .row > .col .box.middle .fando-card.top-2::before {
   position: absolute;
   content: "";
   height: 80px;
@@ -226,12 +226,12 @@ body * {
   z-index: 7;
   border-left: 1px solid black;
 }
-.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div {
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > div {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .team {
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .team, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > div .team {
   flex-direction: column;
   align-items: center;
   padding-top: 1rem;
@@ -240,17 +240,23 @@ body * {
   max-height: unset;
   border-bottom: none;
 }
-.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .team .team-name {
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .team .team-name, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > div .team .team-name {
   white-space: nowrap;
 }
-.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .team .team-color {
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .team .team-color, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > div .team .team-color {
   margin-right: 0;
 }
-.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .vs {
-  color: #213C73;
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .vs, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > div .vs {
+  color: #213c73;
   font-size: 12px;
   font-weight: 800;
   margin: 0 1rem;
+}
+.teams-map > .row > .col .box.middle .fando-card.top-2::before {
+  display: none;
+}
+.teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > div:first-child {
+  border-bottom: 1px solid #dfdfdf;
 }
 
 /*# sourceMappingURL=style.css.map */
