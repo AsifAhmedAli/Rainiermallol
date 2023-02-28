@@ -50,7 +50,7 @@ body * {
             height: 117.5px;
             width: 110px;
             right: -65px;
-            bottom: 230.5px;
+            bottom: 231.5px;
             z-index: 7;
             background-image: url("../images/bottom-1.svg");
             background-repeat: no-repeat;
@@ -66,10 +66,10 @@ body * {
           &::before {
             position: absolute;
             content: "";
-            height: 75.5px;
-            width: 100%;
-            right: -43px;
-            top: 212px;
+            height: 105.5px;
+            width: 105px;
+            right: -64px;
+            top: 112px;
             z-index: 7;
             background-image: url("../images/left-1.svg");
             background-repeat: no-repeat;
@@ -113,10 +113,10 @@ body * {
           &::after {
             position: absolute;
             content: "";
-            height: 75.5px;
-            width: 80.5px;
-            left: -42px;
-            top: 212px;
+            height: 105px;
+            width: 110px;
+            left: -67px;
+            top: 112px;
             z-index: 7;
             background-image: url("../images/right-2.svg");
             background-repeat: no-repeat;
@@ -163,6 +163,16 @@ body * {
                 padding: 7px 11px;
                 border-bottom: 0.7px solid #dfdfdf;
                 max-height: 30px;
+                &.separator{
+                  font-size: 12px;
+                  font-weight: 500;
+                  justify-content: center;
+                  background-color: #f2f2f2;
+                  b{
+                    color: #213c73;
+                    font-weight: 700;
+                  }
+                }
                 .team-color {
                   border-radius: 1px;
                   width: 25px !important;
@@ -170,6 +180,16 @@ body * {
                   min-width: 25px !important;
                   min-height: 1rem !important;
                   margin-right: 9px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.25);
+                  background-color: transparent !important;
+                  > img{
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 2px;
+                  }
                   &.red {
                     background-color: #f41818;
                   }
@@ -210,18 +230,21 @@ body * {
         }
         &.middle {
           .fando-card {
-            max-width: 248px;
+            max-width: 200px;
+            &.top-2{
+              margin-top: 75px;
+            }
             &.top-1,
             &.top-2 {
-              margin-bottom: 80px;
+              margin-bottom: 40px;
               position: relative;
               &::before {
                 position: absolute;
                 content: "";
-                height: 80px;
+                height: 40px;
                 width: 2px;
                 left: 50%;
-                top: 100%;
+                bottom: 100%;
                 z-index: 7;
                 border-left: 1px solid black;
               }
@@ -229,7 +252,6 @@ body * {
                 > div {
                   display: flex;
                   align-items: center;
-                  justify-content: center;
                   .team {
                     flex-direction: column;
                     align-items: center;
