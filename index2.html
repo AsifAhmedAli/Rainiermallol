@@ -48,8 +48,11 @@
                         team +=
                           '</div><div class="fando-card-footer">' +
                           groupLavel.TournamentVenue;
-                        const startDateConvert = groupLavel.StartDate;
-                        team += "<b>" + startDateConvert;
+                        team +=
+                          "<b>" +
+                          groupLavel.StartDate +
+                          " - " +
+                          groupLavel.EndDate;
                         team += "</b></div>";
                       }
                     }
@@ -92,8 +95,11 @@
                           team +=
                             '</div><div class="fando-card-footer">' +
                             groupLavel.TournamentVenue;
-                          const startDateConvert = groupLavel.StartDate;
-                          team += "<b>" + startDateConvert;
+                          team +=
+                            "<b>" +
+                            groupLavel.StartDate +
+                            " - " +
+                            groupLavel.EndDate;
                           team += "</b></div>";
                         }
                       }
@@ -106,7 +112,14 @@
             </div>
           </div>
         </div>
-        <div class="col"></div>
+        <div class="col">
+          <div class="box left-2">
+            <p class="title">Segunda Ronda</p>
+            <div class="fando-card top-1" id="left-level-2-1">
+              
+            </div>
+          </div>
+        </div>
         <div class="col"></div>
         <div class="col"></div>
         <div class="col"></div>
