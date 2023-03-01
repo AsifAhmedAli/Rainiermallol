@@ -22,15 +22,88 @@
                   let team = "";
                   $.each(data, function (key, value) {
                     team += '<div class="fando-card-header">';
-                    $.each(value.rounds, function (key, value1) {
-                      team += value1.RoundName;
-                    });
+                    for (let i = 0; i < 1; i++) {
+                      const roundLevel = value.rounds[0];
+                      for (let j = 0; j < 1; j++) {
+                        const groupLavel = roundLevel.groups[0];
+                        team += groupLavel.GroupName;
+                        team += '</div><div class="fando-card-body">';
+                        for (
+                          let k = 0;
+                          k < groupLavel.sections[0].teamsOrdering.length;
+                          k++
+                        ) {
+                          const teamsOrderingLevel =
+                            groupLavel.sections[0].teamsOrdering[k];
+                          team +=
+                            '<div class="team type-1"><div class="team-color red"><img src="';
+                          team += teamsOrderingLevel.team[0].TeamLogo;
+                          team += '" alt=""></div>';
+                          team +=
+                            '<p class="team-name">' +
+                            teamsOrderingLevel.team[0].TeamName;
+                          +"</p>";
+                          team += "</div>";
+                        }
+                        team +=
+                          '</div><div class="fando-card-footer">' +
+                          groupLavel.TournamentVenue;
+                        const startDateConvert = groupLavel.StartDate;
+                        team += "<b>" + startDateConvert;
+                        team += "</b></div>";
+                      }
+                    }
                     team += "</div>";
                   });
                   $("#left-level-1-1").append(team);
                 });
               });
             </script>
+            <div class="fando-card" id="left-level-1-2">
+              <script>
+                $(document).ready(function () {
+                  $.getJSON("TuSeleccion.json", function (data) {
+                    let team = "";
+                    $.each(data, function (key, value) {
+                      team += '<div class="fando-card-header">';
+                      for (let i = 0; i < 1; i++) {
+                        const roundLevel = value.rounds[0];
+                        for (let j = 0; j < 1; j++) {
+                          const groupLavel = roundLevel.groups[1];
+                          team += groupLavel.GroupName;
+                          team += '</div><div class="fando-card-body">';
+                          for (
+                            let k = 0;
+                            k < groupLavel.sections[0].teamsOrdering.length;
+                            k++
+                          ) {
+                            const teamsOrderingLevel =
+                              groupLavel.sections[0].teamsOrdering[k];
+                            team +=
+                              '<div class="team type-1"><div class="team-color red"><img src="';
+                            team += teamsOrderingLevel.team[0].TeamLogo;
+                            team += '" alt=""></div>';
+                            team +=
+                              '<p class="team-name">' +
+                              teamsOrderingLevel.team[0].TeamName;
+                            +"</p>";
+                            team += "</div>";
+                          }
+                          team +=
+                            '</div><div class="fando-card-footer">' +
+                            groupLavel.TournamentVenue;
+                          const startDateConvert = groupLavel.StartDate;
+                          team += "<b>" + startDateConvert;
+                          team += "</b></div>";
+                        }
+                      }
+                      team += "</div>";
+                    });
+                    $("#left-level-1-2").append(team);
+                  });
+                });
+              </script>
+            </div>
           </div>
         </div>
         <div class="col"></div>
