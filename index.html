@@ -7,6 +7,30 @@
     <title>Document</title>
     <link rel="stylesheet" href="./assets/css/bootstrap.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script>
+      const globalMonth = [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Dicimre",
+      ];
+
+      function drawHeaderStart(){
+        return '<div class="fando-card-header">';
+      }
+      function drawBodyStart(){
+        return '</div><div class="fando-card-body">';
+      }
+    </script>
   </head>
   <body>
     <div class="container teams-map">
@@ -14,253 +38,524 @@
         <div class="col">
           <div class="box left">
             <p class="title">Primera Ronda</p>
-            <div class="fando-card top-1">
-              <div class="fando-card-header">Pool A</div>
-              <div class="fando-card-body">
-                <div class="team type-1">
-                  <div class="team-color red">
-                    <img src="https://raw.githubusercontent.com/RainierMallol/country-flags/main/svg/nl.svg" alt="">
-                  </div>
-                  <p class="team-name">Equipo 1</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color blue"></div>
-                  <p class="team-name">Equipo 2</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color yellow"></div>
-                  <p class="team-name">Equipo 3</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color green"></div>
-                  <p class="team-name">Equipo 4</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color purple"></div>
-                  <p class="team-name">Equipo 5</p>
-                </div>
-              </div>
-              <div class="fando-card-footer">
-                Miami, Florida
-                <b>Septiembre 00 - 00</b>
-              </div>
-            </div>
-            <div class="fando-card">
-              <div class="fando-card-header">Pool B</div>
-              <div class="fando-card-body">
-                <div class="team type-1">
-                  <div class="team-color red"></div>
-                  <p class="team-name">Equipo 1</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color blue"></div>
-                  <p class="team-name">Equipo 2</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color yellow"></div>
-                  <p class="team-name">Equipo 3</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color green"></div>
-                  <p class="team-name">Equipo 4</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color purple"></div>
-                  <p class="team-name">Equipo 5</p>
-                </div>
-              </div>
-              <div class="fando-card-footer">
-                Miami, Florida
-                <b>Septiembre 00 - 00</b>
-              </div>
+            <div class="fando-card top-1" id="left-level-1-1"></div>
+            <script>
+              $(document).ready(function () {
+                $.getJSON("TuSeleccion.json", function (data) {
+                  let team = "";
+                  $.each(data, function (key, value) {
+                    team += drawHeaderStart();
+                    for (let i = 0; i < 1; i++) {
+                      const roundLevel = value.rounds[0];
+                      for (let j = 0; j < 1; j++) {
+                        const groupLavel = roundLevel.groups[0];
+                        team += groupLavel.GroupName;
+                        team += drawBodyStart();
+                        for (
+                          let k = 0;
+                          k < groupLavel.sections[0].teamsOrdering.length;
+                          k++
+                        ) {
+                          const teamsOrderingLevel =
+                            groupLavel.sections[0].teamsOrdering[k];
+                          team +=
+                            '<div class="team type-1"><div class="team-color red"><img src="';
+                          team += teamsOrderingLevel.team[0].TeamLogo;
+                          team += '" alt=""></div>';
+                          team +=
+                            '<p class="team-name">' +
+                            teamsOrderingLevel.team[0].TeamName;
+                          +"</p>";
+                          team += "</div>";
+                        }
+                        team +=
+                          '</div><div class="fando-card-footer">' +
+                          groupLavel.TournamentVenue;
+                        var date1 = new Date(groupLavel.StartDate);
+                        var date2 = new Date(groupLavel.EndDate);
+                        team +=
+                          "<b>" +
+                          globalMonth[date1.getMonth()] +
+                          " " +
+                          date1.getDate() +
+                          " - " +
+                          date2.getDate();
+                        team += "</b></div>";
+                      }
+                    }
+                    team += "</div>";
+                  });
+                  $("#left-level-1-1").append(team);
+                });
+              });
+            </script>
+            <div class="fando-card" id="left-level-1-2">
+              <script>
+                $(document).ready(function () {
+                  $.getJSON("TuSeleccion.json", function (data) {
+                    let team = "";
+                    $.each(data, function (key, value) {
+                      team += drawHeaderStart();
+                      for (let i = 0; i < 1; i++) {
+                        const roundLevel = value.rounds[0];
+                        for (let j = 0; j < 1; j++) {
+                          const groupLavel = roundLevel.groups[1];
+                          team += groupLavel.GroupName;
+                          team += drawBodyStart();
+                          for (
+                            let k = 0;
+                            k < groupLavel.sections[0].teamsOrdering.length;
+                            k++
+                          ) {
+                            const teamsOrderingLevel =
+                              groupLavel.sections[0].teamsOrdering[k];
+                            team +=
+                              '<div class="team type-1"><div class="team-color red"><img src="';
+                            team += teamsOrderingLevel.team[0].TeamLogo;
+                            team += '" alt=""></div>';
+                            team +=
+                              '<p class="team-name">' +
+                              teamsOrderingLevel.team[0].TeamName;
+                            +"</p>";
+                            team += "</div>";
+                          }
+                          team +=
+                            '</div><div class="fando-card-footer">' +
+                            groupLavel.TournamentVenue;
+                          var date1 = new Date(groupLavel.StartDate);
+                          var date2 = new Date(groupLavel.EndDate);
+                          team +=
+                            "<b>" +
+                            globalMonth[date1.getMonth()] +
+                            " " +
+                            date1.getDate() +
+                            " - " +
+                            date2.getDate();
+                          team += "</b></div>";
+                        }
+                      }
+                      team += "</div>";
+                    });
+                    $("#left-level-1-2").append(team);
+                  });
+                });
+              </script>
             </div>
           </div>
         </div>
         <div class="col">
           <div class="box left-2">
             <p class="title">Segunda Ronda</p>
-            <div class="fando-card top-1">
-              <div class="fando-card-header">Cuartos de Final 1</div>
-              <div class="fando-card-body">
-                <div class="team type-1 separator">
-                  <b>Juego 1</b> - Marzo 15
-                </div>
-                <div class="team type-1">
-                  <div class="team-color red"></div>
-                  <p class="team-name">POOL A (winner)</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color blue"></div>
-                  <p class="team-name">POOL A (runner up)</p>
-                </div>
-                <div class="team type-1 separator">
-                  <b>Juego 2</b> - Marzo 16
-                </div>
-                <div class="team type-1">
-                  <div class="team-color yellow"></div>
-                  <p class="team-name">POOL B (winner)</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color green"></div>
-                  <p class="team-name">POOL B (runner up)</p>
-                </div>
-              </div>
-              <div class="fando-card-footer">
-                Miami, Florida
-                <b>Septiembre 00 - 00</b>
-              </div>
+            <div class="fando-card top-1" id="left-level-2-1">
+              <script>
+                $(document).ready(function () {
+                  $.getJSON("TuSeleccion.json", function (data) {
+                    let team = "";
+                    $.each(data, function (key, value) {
+                      team += drawHeaderStart();
+                      for (let i = 0; i < 1; i++) {
+                        const roundLevel = value.rounds[1];
+                        for (let j = 0; j < 1; j++) {
+                          const groupLavel = roundLevel.groups[0];
+                          team += groupLavel.GroupName;
+                          team += drawBodyStart();
+                          team +=
+                            '<div class="team type-1 separator"><b>' +
+                            groupLavel.sections[0].SectionName +
+                            "</b> - ";
+                          var date1 = new Date(groupLavel.sections[0].GameDate);
+                          team +=
+                            globalMonth[date1.getMonth()] +
+                            " " +
+                            date1.getDate();
+                          team += "</div>";
+                          for (
+                            let k = 0;
+                            k < groupLavel.sections[0].teamsOrdering.length;
+                            k++
+                          ) {
+                            const teamsOrderingLevel =
+                              groupLavel.sections[0].teamsOrdering[k];
+                            team +=
+                              '<div class="team type-1"><div class="team-color red"><img src="';
+                            team += teamsOrderingLevel.team[0].TeamLogo;
+                            team += '" alt=""></div>';
+                            team +=
+                              '<p class="team-name">' +
+                              teamsOrderingLevel.team[0].TeamName;
+                            +"</p>";
+                            team += "</div>";
+                          }
+                          team +=
+                            '<div class="team type-1 separator"><b>' +
+                            groupLavel.sections[1].SectionName +
+                            "</b> -";
+                          var date2 = new Date(groupLavel.sections[1].GameDate);
+                          team +=
+                            globalMonth[date2.getMonth()] +
+                            " " +
+                            date2.getDate();
+                          team += "</div>";
+                          for (
+                            let k = 0;
+                            k < groupLavel.sections[1].teamsOrdering.length;
+                            k++
+                          ) {
+                            const teamsOrderingLevel =
+                              groupLavel.sections[1].teamsOrdering[k];
+                            team +=
+                              '<div class="team type-1"><div class="team-color red"><img src="';
+                            team += teamsOrderingLevel.team[0].TeamLogo;
+                            team += '" alt=""></div>';
+                            team +=
+                              '<p class="team-name">' +
+                              teamsOrderingLevel.team[0].TeamName;
+                            +"</p>";
+                            team += "</div>";
+                          }
+                          team +=
+                            '</div><div class="fando-card-footer"><b>' +
+                            groupLavel.TournamentVenue +
+                            "</b>";
+                        }
+                      }
+                      team += "</div>";
+                    });
+                    $("#left-level-2-1").append(team);
+                  });
+                });
+              </script>
             </div>
           </div>
         </div>
         <div class="col">
           <div class="box middle">
             <p class="title">Ronda de Campeonato</p>
-            <div class="fando-card top-2">
-              <div class="fando-card-header">SEMIFINALES</div>
-              <div class="fando-card-body">
-                <div class="team type-1 separator">
-                  <b>Juego 1</b> - Marzo 15
-                </div>
-                <div class="team type-1">
-                  <div class="team-color red"></div>
-                  <p class="team-name">POOL A (winner)</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color blue"></div>
-                  <p class="team-name">POOL A (runner up)</p>
-                </div>
-                <div class="team type-1 separator">
-                  <b>Juego 2</b> - Marzo 16
-                </div>
-                <div class="team type-1">
-                  <div class="team-color yellow"></div>
-                  <p class="team-name">POOL B (winner)</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color green"></div>
-                  <p class="team-name">POOL B (runner up)</p>
-                </div>
-              </div>
-              <div class="fando-card-footer">
-                Miami, Florida
-                <b>Septiembre 00 - 00</b>
-              </div>
+            <div class="fando-card top-2" id="left-level-3-1">
+              <script>
+                $(document).ready(function () {
+                  $.getJSON("TuSeleccion.json", function (data) {
+                    let team = "";
+                    $.each(data, function (key, value) {
+                      team += drawHeaderStart();
+                      for (let i = 0; i < 1; i++) {
+                        const roundLevel = value.rounds[2];
+                        for (let j = 0; j < 1; j++) {
+                          const groupLavel = roundLevel.groups[0];
+                          team += groupLavel.GroupName;
+                          team += drawBodyStart();
+                          team +=
+                            '<div class="team type-1 separator"><b>' +
+                            groupLavel.sections[0].SectionName +
+                            "</b> - ";
+                          var semiFinalDate1 = new Date(
+                            groupLavel.sections[0].GameDate
+                          );
+                          team +=
+                            globalMonth[semiFinalDate1.getMonth()] +
+                            " " +
+                            semiFinalDate1.getDate();
+                          team += "</div>";
+                          for (
+                            let k = 0;
+                            k < groupLavel.sections[0].teamsOrdering.length;
+                            k++
+                          ) {
+                            const teamsOrderingLevel =
+                              groupLavel.sections[0].teamsOrdering[k];
+                            team +=
+                              '<div class="team type-1"><div class="team-color red"><img src="';
+                            team += teamsOrderingLevel.team[0].TeamLogo;
+                            team += '" alt=""></div>';
+                            team +=
+                              '<p class="team-name">' +
+                              teamsOrderingLevel.team[0].TeamName;
+                            +"</p>";
+                            team += "</div>";
+                          }
+                          team +=
+                            '<div class="team type-1 separator"><b>' +
+                            groupLavel.sections[1].SectionName +
+                            "</b> - ";
+                          var semiFinalDate2 = new Date(
+                            groupLavel.sections[1].GameDate
+                          );
+                          team +=
+                            globalMonth[semiFinalDate2.getMonth()] +
+                            " " +
+                            semiFinalDate2.getDate();
+                          team += "</div>";
+                          for (
+                            let k = 0;
+                            k < groupLavel.sections[1].teamsOrdering.length;
+                            k++
+                          ) {
+                            const teamsOrderingLevel =
+                              groupLavel.sections[1].teamsOrdering[k];
+                            team +=
+                              '<div class="team type-1"><div class="team-color red"><img src="';
+                            team += teamsOrderingLevel.team[0].TeamLogo;
+                            team += '" alt=""></div>';
+                            team +=
+                              '<p class="team-name">' +
+                              teamsOrderingLevel.team[0].TeamName;
+                            +"</p>";
+                            team += "</div>";
+                          }
+                          team +=
+                            '</div><div class="fando-card-footer"><b>' +
+                            groupLavel.TournamentVenue +
+                            "</b>";
+                        }
+                      }
+                      team += "</div>";
+                    });
+                    $("#left-level-3-1").append(team);
+                  });
+                });
+              </script>
             </div>
-            <div class="fando-card top-1">
-              <div class="fando-card-header">FINALES</div>
-              <div class="fando-card-body">
-                <div class="team type-1">
-                  <div class="team-color red"></div>
-                  <p class="team-name">Equipo 1</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color blue"></div>
-                  <p class="team-name">Equipo 2</p>
-                </div>
-              </div>
-              <div class="fando-card-footer">
-                Miami, Florida
-                <b>Septiembre 00 - 00</b>
-              </div>
+            <div class="fando-card top-1" id="left-level-3-2">
+              <script>
+                $(document).ready(function () {
+                  $.getJSON("TuSeleccion.json", function (data) {
+                    let team = "";
+                    $.each(data, function (key, value) {
+                      team += drawHeaderStart();
+                      for (let i = 0; i < 1; i++) {
+                        const roundLevel = value.rounds[3];
+                        for (let j = 0; j < 1; j++) {
+                          const groupLavel = roundLevel.groups[0];
+                          team += groupLavel.GroupName;
+                          team += drawBodyStart();
+                          for (
+                            let k = 0;
+                            k < groupLavel.sections[0].teamsOrdering.length;
+                            k++
+                          ) {
+                            const teamsOrderingLevel =
+                              groupLavel.sections[0].teamsOrdering[k];
+                            team +=
+                              '<div class="team type-1"><div class="team-color red"><img src="';
+                            team += teamsOrderingLevel.team[0].TeamLogo;
+                            team += '" alt=""></div>';
+                            team +=
+                              '<p class="team-name">' +
+                              teamsOrderingLevel.team[0].TeamName;
+                            +"</p>";
+                            team += "</div>";
+                          }
+                          team +=
+                            '</div><div class="fando-card-footer">' +
+                            groupLavel.TournamentVenue;
+                            var date1 = new Date(groupLavel.StartDate);
+                        var date2 = new Date(groupLavel.EndDate);
+                        team +=
+                          "<b>" +
+                            globalMonth[date1.getMonth()] + ' ' + date1.getDate();
+                          team += "</b></div>";
+                        }
+                      }
+                      team += "</div>";
+                    });
+                    $("#left-level-3-2").append(team);
+                  });
+                });
+              </script>
             </div>
           </div>
         </div>
         <div class="col">
           <div class="box right-2">
             <p class="title">Segunda Ronda</p>
-            <div class="fando-card top-1">
-              <div class="fando-card-header">Cuartos de Final 2</div>
-              <div class="fando-card-body">
-                <div class="team type-1 separator">
-                  <b>Juego 1</b> - Marzo 15
-                </div>
-                <div class="team type-1">
-                  <div class="team-color red"></div>
-                  <p class="team-name">Equipo 1</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color blue"></div>
-                  <p class="team-name">Equipo 2</p>
-                </div>
-                <div class="team type-1 separator">
-                  <b>Juego 1</b> - Marzo 15
-                </div>
-                <div class="team type-1">
-                  <div class="team-color yellow"></div>
-                  <p class="team-name">Equipo 3</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color green"></div>
-                  <p class="team-name">Equipo 4</p>
-                </div>
-              </div>
-              <div class="fando-card-footer">
-                Miami, Florida
-                <b>Septiembre 00 - 00</b>
-              </div>
+            <div class="fando-card top-1" id="left-level-4-1">
+              <script>
+                $(document).ready(function () {
+                  $.getJSON("TuSeleccion.json", function (data) {
+                    let team = "";
+                    $.each(data, function (key, value) {
+                      team += drawHeaderStart();
+                      for (let i = 0; i < 1; i++) {
+                        const roundLevel = value.rounds[1];
+                        for (let j = 0; j < 1; j++) {
+                          const groupLavel = roundLevel.groups[1];
+                          team += groupLavel.GroupName;
+                          team += drawBodyStart();
+                          team +=
+                            '<div class="team type-1 separator"><b>' +
+                            groupLavel.sections[0].SectionName +
+                            "</b> - ";
+                          var date1 = new Date(groupLavel.sections[0].GameDate);
+                          team +=
+                            globalMonth[date1.getMonth()] +
+                            " " +
+                            date1.getDate();
+                          team += "</div>";
+                          for (
+                            let k = 0;
+                            k < groupLavel.sections[0].teamsOrdering.length;
+                            k++
+                          ) {
+                            const teamsOrderingLevel =
+                              groupLavel.sections[0].teamsOrdering[k];
+                            team +=
+                              '<div class="team type-1"><div class="team-color red"><img src="';
+                            team += teamsOrderingLevel.team[0].TeamLogo;
+                            team += '" alt=""></div>';
+                            team +=
+                              '<p class="team-name">' +
+                              teamsOrderingLevel.team[0].TeamName;
+                            +"</p>";
+                            team += "</div>";
+                          }
+                          team +=
+                            '<div class="team type-1 separator"><b>' +
+                            groupLavel.sections[1].SectionName +
+                            "</b> - ";
+                          var date2 = new Date(groupLavel.sections[1].GameDate);
+                          team +=
+                            globalMonth[date2.getMonth()] +
+                            " " +
+                            date2.getDate();
+                          team += "</div>";
+                          for (
+                            let k = 0;
+                            k < groupLavel.sections[1].teamsOrdering.length;
+                            k++
+                          ) {
+                            const teamsOrderingLevel =
+                              groupLavel.sections[1].teamsOrdering[k];
+                            team +=
+                              '<div class="team type-1"><div class="team-color red"><img src="';
+                            team += teamsOrderingLevel.team[0].TeamLogo;
+                            team += '" alt=""></div>';
+                            team +=
+                              '<p class="team-name">' +
+                              teamsOrderingLevel.team[0].TeamName;
+                            +"</p>";
+                            team += "</div>";
+                          }
+                          team +=
+                            '</div><div class="fando-card-footer"><b>' +
+                            groupLavel.TournamentVenue +
+                            "</b>";
+                        }
+                      }
+                      team += "</div>";
+                    });
+                    $("#left-level-4-1").append(team);
+                  });
+                });
+              </script>
             </div>
           </div>
         </div>
         <div class="col">
           <div class="box right">
             <p class="title">Primera Ronda</p>
-            <div class="fando-card right-1">
-              <div class="fando-card-header">Pool A</div>
-              <div class="fando-card-body">
-                <div class="team type-1">
-                  <div class="team-color red"></div>
-                  <p class="team-name">Equipo 1</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color blue"></div>
-                  <p class="team-name">Equipo 2</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color yellow"></div>
-                  <p class="team-name">Equipo 3</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color green"></div>
-                  <p class="team-name">Equipo 4</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color purple"></div>
-                  <p class="team-name">Equipo 5</p>
-                </div>
-              </div>
-              <div class="fando-card-footer">
-                Miami, Florida
-                <b>Septiembre 00 - 00</b>
-              </div>
+            <div class="fando-card right-1" id="left-level-5-1">
+              <script>
+                $(document).ready(function () {
+                  $.getJSON("TuSeleccion.json", function (data) {
+                    let team = "";
+                    $.each(data, function (key, value) {
+                      team += drawHeaderStart();
+                      for (let i = 0; i < 1; i++) {
+                        const roundLevel = value.rounds[0];
+                        for (let j = 0; j < 1; j++) {
+                          const groupLavel = roundLevel.groups[2];
+                          team += groupLavel.GroupName;
+                          team += drawBodyStart();
+                          for (
+                            let k = 0;
+                            k < groupLavel.sections[0].teamsOrdering.length;
+                            k++
+                          ) {
+                            const teamsOrderingLevel =
+                              groupLavel.sections[0].teamsOrdering[k];
+                            team +=
+                              '<div class="team type-1"><div class="team-color red"><img src="';
+                            team += teamsOrderingLevel.team[0].TeamLogo;
+                            team += '" alt=""></div>';
+                            team +=
+                              '<p class="team-name">' +
+                              teamsOrderingLevel.team[0].TeamName;
+                            +"</p>";
+                            team += "</div>";
+                          }
+                          team +=
+                            '</div><div class="fando-card-footer">' +
+                            groupLavel.TournamentVenue;
+                          var date1 = new Date(groupLavel.StartDate);
+                          var date2 = new Date(groupLavel.EndDate);
+                          team +=
+                            "<b>" +
+                            globalMonth[date1.getMonth()] +
+                            " " +
+                            date1.getDate() +
+                            " - " +
+                            date2.getDate();
+                          team += "</b></div>";
+                        }
+                      }
+                      team += "</div>";
+                    });
+                    $("#left-level-5-1").append(team);
+                  });
+                });
+              </script>
             </div>
-            <div class="fando-card">
-              <div class="fando-card-header">Pool B</div>
-              <div class="fando-card-body">
-                <div class="team type-1">
-                  <div class="team-color red"></div>
-                  <p class="team-name">Equipo 1</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color blue"></div>
-                  <p class="team-name">Equipo 2</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color yellow"></div>
-                  <p class="team-name">Equipo 3</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color green"></div>
-                  <p class="team-name">Equipo 4</p>
-                </div>
-                <div class="team type-1">
-                  <div class="team-color purple"></div>
-                  <p class="team-name">Equipo 5</p>
-                </div>
-              </div>
-              <div class="fando-card-footer">
-                Miami, Florida
-                <b>Septiembre 00 - 00</b>
-              </div>
+            <div class="fando-card" id="left-level-5-2">
+              <script>
+                $(document).ready(function () {
+                  $.getJSON("TuSeleccion.json", function (data) {
+                    let team = "";
+                    $.each(data, function (key, value) {
+                      team += drawHeaderStart();
+                      for (let i = 0; i < 1; i++) {
+                        const roundLevel = value.rounds[0];
+                        for (let j = 0; j < 1; j++) {
+                          const groupLavel = roundLevel.groups[3];
+                          team += groupLavel.GroupName;
+                          team += drawBodyStart();
+                          for (
+                            let k = 0;
+                            k < groupLavel.sections[0].teamsOrdering.length;
+                            k++
+                          ) {
+                            const teamsOrderingLevel =
+                              groupLavel.sections[0].teamsOrdering[k];
+                            team +=
+                              '<div class="team type-1"><div class="team-color red"><img src="';
+                            team += teamsOrderingLevel.team[0].TeamLogo;
+                            team += '" alt=""></div>';
+                            team +=
+                              '<p class="team-name">' +
+                              teamsOrderingLevel.team[0].TeamName;
+                            +"</p>";
+                            team += "</div>";
+                          }
+                          team +=
+                            '</div><div class="fando-card-footer">' +
+                            groupLavel.TournamentVenue;
+                          var date1 = new Date(groupLavel.StartDate);
+                          var date2 = new Date(groupLavel.EndDate);
+                          team +=
+                            "<b>" +
+                            globalMonth[date1.getMonth()] +
+                            " " +
+                            date1.getDate() +
+                            " - " +
+                            date2.getDate();
+                          team += "</b></div>";
+                        }
+                      }
+                      team += "</div>";
+                    });
+                    $("#left-level-5-2").append(team);
+                  });
+                });
+              </script>
             </div>
           </div>
         </div>
