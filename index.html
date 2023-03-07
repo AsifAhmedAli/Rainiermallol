@@ -24,12 +24,16 @@
         "Dicimre",
       ];
 
-      function drawHeaderStart(){
+      function drawHeaderStart() {
         return '<div class="fando-card-header">';
       }
-      function drawBodyStart(){
+      function drawBodyStart() {
         return '</div><div class="fando-card-body">';
       }
+    </script>
+
+    <script>
+      const jsonFile = "TuSeleccion.json";
     </script>
   </head>
   <body>
@@ -41,7 +45,7 @@
             <div class="fando-card top-1" id="left-level-1-1"></div>
             <script>
               $(document).ready(function () {
-                $.getJSON("TuSeleccion.json", function (data) {
+                $.getJSON(jsonFile, function (data) {
                   let team = "";
                   $.each(data, function (key, value) {
                     team += drawHeaderStart();
@@ -59,7 +63,7 @@
                           const teamsOrderingLevel =
                             groupLavel.sections[0].teamsOrdering[k];
                           team +=
-                            '<div class="team type-1"><div class="team-color red"><img src="';
+                            '<div class="team type-1 card-2" ondragstart=handleDragStart() draggable="true"><div class="team-color red"><img src="';
                           team += teamsOrderingLevel.team[0].TeamLogo;
                           team += '" alt=""></div>';
                           team +=
@@ -89,10 +93,11 @@
                 });
               });
             </script>
+            
             <div class="fando-card" id="left-level-1-2">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -149,7 +154,7 @@
             <div class="fando-card top-1" id="left-level-2-1">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -234,7 +239,7 @@
             <div class="fando-card top-2" id="left-level-3-1">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -318,7 +323,7 @@
             <div class="fando-card top-1" id="left-level-3-2">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -348,11 +353,13 @@
                           team +=
                             '</div><div class="fando-card-footer">' +
                             groupLavel.TournamentVenue;
-                            var date1 = new Date(groupLavel.StartDate);
-                        var date2 = new Date(groupLavel.EndDate);
-                        team +=
-                          "<b>" +
-                            globalMonth[date1.getMonth()] + ' ' + date1.getDate();
+                          var date1 = new Date(groupLavel.StartDate);
+                          var date2 = new Date(groupLavel.EndDate);
+                          team +=
+                            "<b>" +
+                            globalMonth[date1.getMonth()] +
+                            " " +
+                            date1.getDate();
                           team += "</b></div>";
                         }
                       }
@@ -371,7 +378,7 @@
             <div class="fando-card top-1" id="left-level-4-1">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -456,7 +463,7 @@
             <div class="fando-card right-1" id="left-level-5-1">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -508,7 +515,7 @@
             <div class="fando-card" id="left-level-5-2">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -561,5 +568,6 @@
         </div>
       </div>
     </div>
+    <script src="/script.js"></script>
   </body>
 </html>

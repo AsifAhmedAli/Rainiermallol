@@ -282,4 +282,8 @@ body * {
   border-bottom: 1px solid #dfdfdf;
 }
 
+[draggable] {
+  user-select: none;
+}
+
 /*# sourceMappingURL=style.css.map */

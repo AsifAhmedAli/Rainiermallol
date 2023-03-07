@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .columns {
+        margin: 0 auto;
+        background: #d3d3d3;
+        width: 800px;
+        padding: 20px;
+      }
+      .card {
+        width: 32%;
+        display: inline-block;
+        margin-right: 1.2%;
+        height: 120px;
+        font-size: 50px;
+        background: #ff1493;
+        border: 3px solid #ff1493;
+        box-sizing: border-box;
+        color: #fff;
+        line-height: 120px;
+        vertical-align: middle;
+        text-align: center;
+      }
+      .card:last-child {
+        margin-right: 0;
+      }
+      .card:nth-child(2) {
+        background: #1e90ff;
+        border-color: #1e90ff;
+      }
+      .card:nth-child(3) {
+        background: #00ced1;
+        border-color: #00ced1;
+      }
+      .card.dragging {
+        opacity: 0.5;
+      }
+      .card.over {
+        border: 3px dashed #000;
+      }
+      [draggable] {
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Drag &amp; Drop</h1>
+
+    <div class="columns">
+      <div class="card" draggable="true">
+        <div class="team type-1" draggable="true">
+          <div class="team-color red">
+            <img
+              src="https://raw.githubusercontent.com/RainierMallol/country-flags/main/svg/tw.svg"
+              alt=""
+            />
+          </div>
+          <p class="team-name">Taipei China</p>
+        </div>
+      </div>
+      <div class="card" draggable="true">B</div>
+      <div class="card" draggable="true">C</div>
+    </div>
+
+    <script>
+      var columns = document.querySelectorAll(".card");
+      var draggingClass = "dragging";
+      var dragSource;
+
+      Array.prototype.forEach.call(columns, function (col) {
+        col.addEventListener("dragstart", handleDragStart, false);
+        col.addEventListener("dragenter", handleDragEnter, false);
+        col.addEventListener("dragover", handleDragOver, false);
+        col.addEventListener("dragleave", handleDragLeave, false);
+        col.addEventListener("drop", handleDrop, false);
+        col.addEventListener("dragend", handleDragEnd, false);
+      });
+
+      function handleDragStart(evt) {
+        dragSource = this;
+        evt.target.classList.add(draggingClass);
+        evt.dataTransfer.effectAllowed = "move";
+        evt.dataTransfer.setData("text/html", this.innerHTML);
+      }
+
+      function handleDragOver(evt) {
+        evt.dataTransfer.dropEffect = "move";
+        evt.preventDefault();
+      }
+
+      function handleDragEnter(evt) {
+        this.classList.add("over");
+      }
+
+      function handleDragLeave(evt) {
+        this.classList.remove("over");
+      }
+
+      function handleDrop(evt) {
+        evt.stopPropagation();
+
+        if (dragSource !== this) {
+          dragSource.innerHTML = this.innerHTML;
+          this.innerHTML = evt.dataTransfer.getData("text/html");
+        }
+
+        evt.preventDefault();
+      }
+
+      function handleDragEnd(evt) {
+        Array.prototype.forEach.call(columns, function (col) {
+          ["over", "dragging"].forEach(function (className) {
+            col.classList.remove(className);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
