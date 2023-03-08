@@ -42,100 +42,101 @@
       <div class="col">
         <div class="box left">
           <p class="title">Primera Ronda</p>
-          <div class="fando-card top-1" id="left-level-1-1"></div>
-          <script>
-            $(document).ready(function () {
-              $.getJSON(jsonFile, function (data) {
-                let team = "";
-                $.each(data, function (key, value) {
-                  team += drawHeaderStart();
-                  for (let i = 0; i < 1; i++) {
-                    const roundLevel = value.rounds[0];
-                    for (let j = 0; j < 1; j++) {
-                      const groupLavel = roundLevel.groups[0];
-                      team += groupLavel.GroupName;
-                      team += '</div><div class="fando-card-body" id="left-level-1-1-body">';
-                      for (
-                        let k = 0;
-                        k < groupLavel.sections[0].teamsOrdering.length;
-                        k++
-                      ) {
-                        const teamsOrderingLevel =
-                          groupLavel.sections[0].teamsOrdering[k];
+          <div class="fando-card top-1" id="left-level-1-1">
+            <script>
+              $(document).ready(function () {
+                $.getJSON(jsonFile, function (data) {
+                  let team = "";
+                  $.each(data, function (key, value) {
+                    team += drawHeaderStart();
+                    for (let i = 0; i < 1; i++) {
+                      const roundLevel = value.rounds[0];
+                      for (let j = 0; j < 1; j++) {
+                        const groupLavel = roundLevel.groups[0];
+                        team += groupLavel.GroupName;
+                        team += '</div><div class="fando-card-body" id="left-level-1-1-body">';
+                        for (
+                          let k = 0;
+                          k < groupLavel.sections[0].teamsOrdering.length;
+                          k++
+                        ) {
+                          const teamsOrderingLevel =
+                            groupLavel.sections[0].teamsOrdering[k];
+                          team +=
+                            '<div class="team type-1 card-2" id="type-1-card-1-' +
+                            (k + 1) +
+                            '" draggable="true"';
+                          team +=
+                            'ondragstart="drag1(event)" ondrop="drop1(event)" ondragover="allowDrop1(event)">';
+                          team += '<div class="team-color red"><img src="';
+                          team += teamsOrderingLevel.team[0].TeamLogo;
+                          team += '" alt=""></div>';
+                          team +=
+                            '<p class="team-name">' +
+                            teamsOrderingLevel.team[0].TeamName;
+                          +"</p>";
+                          team += "</div>";
+                        }
                         team +=
-                          '<div class="team type-1 card-2 common" id="type-1-card-2-' +
-                          (k + 1) +
-                          '" draggable="true"';
+                          '</div><div class="fando-card-footer">' +
+                          groupLavel.TournamentVenue;
+                        var date1 = new Date(groupLavel.StartDate);
+                        var date2 = new Date(groupLavel.EndDate);
                         team +=
-                          'ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">';
-                        team += '<div class="team-color red"><img src="';
-                        team += teamsOrderingLevel.team[0].TeamLogo;
-                        team += '" alt=""></div>';
-                        team +=
-                          '<p class="team-name">' +
-                          teamsOrderingLevel.team[0].TeamName;
-                        +"</p>";
-                        team += "</div>";
+                          "<b>" +
+                          globalMonth[date1.getMonth()] +
+                          " " +
+                          date1.getDate() +
+                          " - " +
+                          date2.getDate();
+                        team += "</b></div>";
                       }
-                      team +=
-                        '</div><div class="fando-card-footer">' +
-                        groupLavel.TournamentVenue;
-                      var date1 = new Date(groupLavel.StartDate);
-                      var date2 = new Date(groupLavel.EndDate);
-                      team +=
-                        "<b>" +
-                        globalMonth[date1.getMonth()] +
-                        " " +
-                        date1.getDate() +
-                        " - " +
-                        date2.getDate();
-                      team += "</b></div>";
+                    }
+                    team += "</div>";
+                  });
+                  $("#left-level-1-1").append(team);
+                });
+              });
+
+              // Swap Code
+              var dragindex = 0;
+              var clone = "";
+              var sourceID = "";
+
+              function drag1(e) {
+                sourceID = e.target.id;
+                e.dataTransfer.setData("text", e.target.id);
+              }
+
+              function drop1(e) {
+                e.preventDefault();
+                clone = e.target.cloneNode(true);
+                let data = e.dataTransfer.getData("text");
+                if (clone.id !== data) {
+                  let nodelist = document.getElementById("left-level-1-1-body").childNodes;
+                  for (let i = 0; i < nodelist.length; i++) {
+                    if (nodelist[i].id == data) {
+                      dragindex = i;
                     }
                   }
-                  team += "</div>";
-                });
-                $("#left-level-1-1").append(team);
-              });
-            });
 
-            // Swap Code
-            var dragindex = 0;
-            var clone = "";
-
-            function drag(e) {
-              e.dataTransfer.setData("text", e.target.id);
-            }
-
-            function drop(e) {
-              e.preventDefault();
-              clone = e.target.cloneNode(true);
-              let data = e.dataTransfer.getData("text");
-              if (clone.id !== data) {
-                let nodelist = document.getElementById("left-level-1-1-body").childNodes;
-                for (let i = 0; i < nodelist.length; i++) {
-                  if (nodelist[i].id == data) {
-                    dragindex = i;
-                  }
+                  document
+                    .getElementById("left-level-1-1-body")
+                    .replaceChild(document.getElementById(data), e.target);
+                  document
+                    .getElementById("left-level-1-1-body")
+                    .insertBefore(
+                      clone,
+                      document.getElementById("left-level-1-1-body").childNodes[dragindex]
+                    );
                 }
-
-                document
-                  .getElementById("left-level-1-1-body")
-                  .replaceChild(document.getElementById(data), e.target);
-
-                document
-                  .getElementById("left-level-1-1-body")
-                  .insertBefore(
-                    clone,
-                    document.getElementById("left-level-1-1-body").childNodes[dragindex]
-                  );
               }
-            }
 
-            function allowDrop(e) {
-              e.preventDefault();
-            }
-          </script>
-
+              function allowDrop1(e) {
+                e.preventDefault();
+              }
+            </script>
+          </div>
           <div class="fando-card" id="left-level-1-2">
             <script>
               $(document).ready(function () {
@@ -216,17 +217,11 @@
                   document
                     .getElementById("left-level-1-2-body")
                     .replaceChild(document.getElementById(data), e.target);
-
-                  document
-                    .getElementById("left-level-1-2-body")
-                    .insertBefore(
-                      clone,
-                      document.getElementById("left-level-1-2-body").childNodes[dragindex]
-                    );
                 }
               }
 
               function allowDrop(e) {
+                e.stopPropagation();
                 e.preventDefault();
               }
             </script>
