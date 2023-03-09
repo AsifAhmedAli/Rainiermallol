@@ -250,7 +250,7 @@ body * {
                 border-left: 1px solid black;
               }
               .fando-card-body {
-                > div {
+                > .team.type-1 {
                   display: flex;
                   align-items: center;
                   .team {
