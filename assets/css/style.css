@@ -213,6 +213,7 @@ body * {
   background-color: #e189f8;
 }
 .teams-map > .row > .col .box .fando-card .fando-card-body .team.type-1 .team-name {
+  text-align: left;
   margin-bottom: 0;
   font-size: 12px;
   font-weight: 700;
