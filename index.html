@@ -613,8 +613,13 @@
                         ) {
                           const teamsOrderingLevel =
                             groupLavel.sections[0].teamsOrdering[k];
+                            team +=
+                            '<div class="team type-1" id="type-3-3-card-1-' +
+                            (k + 1) +
+                            '" draggable="true"';
                           team +=
-                            '<div class="team type-1"><div class="team-color red"><img src="';
+                            'ondragstart="drag3_2(event)" ondrop="drop3_2(event)" ondragover="allowDrop3_2(event)">';
+                          team += '<div class="team-color red"><img src="';
                           team += teamsOrderingLevel.team[0].TeamLogo;
                           team += '" alt=""></div>';
                           team +=
@@ -641,6 +646,47 @@
                   $("#left-level-3-2").append(team);
                 });
               });
+
+              // Swap Code
+              var dragindex = 0;
+              var clone = "";
+              var sourceID = "";
+
+              function drag3_2(e) {
+                sourceID = e.target.id;
+                e.dataTransfer.setData("text", e.target.id);
+              }
+
+              function drop3_2(e) {
+                e.preventDefault();
+                clone = e.target.cloneNode(true);
+                let data = e.dataTransfer.getData("text");
+                if (clone.id !== data) {
+                  let nodelist = document.getElementById(
+                    "left-level-3-2-body"
+                  ).childNodes;
+                  for (let i = 0; i < nodelist.length; i++) {
+                    if (nodelist[i].id == data) {
+                      dragindex = i;
+                    }
+                  }
+
+                  document
+                    .getElementById("left-level-3-2-body")
+                    .replaceChild(document.getElementById(data), e.target);
+                  document
+                    .getElementById("left-level-3-2-body")
+                    .insertBefore(
+                      clone,
+                      document.getElementById("left-level-3-2-body")
+                        .childNodes[dragindex]
+                    );
+                }
+              }
+
+              function allowDrop3_2(e) {
+                e.preventDefault();
+              }
             </script>
           </div>
         </div>

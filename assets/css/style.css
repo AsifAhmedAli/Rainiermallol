@@ -216,6 +216,10 @@ body * {
   margin-bottom: 0;
   font-size: 12px;
   font-weight: 700;
+  width: 135px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .teams-map > .row > .col .box .fando-card .fando-card-footer {
   padding: 10px;
