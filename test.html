@@ -121,10 +121,12 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl != e.target.id) {
+                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
                     var sourceHTML = dragSrcEl.innerHTML;
                     dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
+                  } else {
+                    return false
                   }
 
                   return false;
@@ -214,7 +216,7 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl != e.target.id) {
+                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
                     var sourceHTML = dragSrcEl.innerHTML;
                     dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
