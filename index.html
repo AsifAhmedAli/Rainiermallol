@@ -7,7 +7,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="./assets/css/bootstrap.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script>
       const globalMonth = [
         "Enero",
@@ -24,84 +25,36 @@
         "Dicimre",
       ];
 
-      function drawHeaderStart(){
+      function drawHeaderStart() {
         return '<div class="fando-card-header">';
       }
-      function drawBodyStart(){
-        return '</div><div class="fando-card-body">';
-      }
+    </script>
+
+    <script>
+      const jsonFile = "TuSeleccion.json";
     </script>
   </head>
+
   <body>
     <div class="container teams-map">
       <div class="row">
         <div class="col">
           <div class="box left">
             <p class="title">Primera Ronda</p>
-            <div class="fando-card top-1" id="left-level-1-1"></div>
-            <script>
-              $(document).ready(function () {
-                $.getJSON("TuSeleccion.json", function (data) {
-                  let team = "";
-                  $.each(data, function (key, value) {
-                    team += drawHeaderStart();
-                    for (let i = 0; i < 1; i++) {
-                      const roundLevel = value.rounds[0];
-                      for (let j = 0; j < 1; j++) {
-                        const groupLavel = roundLevel.groups[0];
-                        team += groupLavel.GroupName;
-                        team += drawBodyStart();
-                        for (
-                          let k = 0;
-                          k < groupLavel.sections[0].teamsOrdering.length;
-                          k++
-                        ) {
-                          const teamsOrderingLevel =
-                            groupLavel.sections[0].teamsOrdering[k];
-                          team +=
-                            '<div class="team type-1"><div class="team-color red"><img src="';
-                          team += teamsOrderingLevel.team[0].TeamLogo;
-                          team += '" alt=""></div>';
-                          team +=
-                            '<p class="team-name">' +
-                            teamsOrderingLevel.team[0].TeamName;
-                          +"</p>";
-                          team += "</div>";
-                        }
-                        team +=
-                          '</div><div class="fando-card-footer">' +
-                          groupLavel.TournamentVenue;
-                        var date1 = new Date(groupLavel.StartDate);
-                        var date2 = new Date(groupLavel.EndDate);
-                        team +=
-                          "<b>" +
-                          globalMonth[date1.getMonth()] +
-                          " " +
-                          date1.getDate() +
-                          " - " +
-                          date2.getDate();
-                        team += "</b></div>";
-                      }
-                    }
-                    team += "</div>";
-                  });
-                  $("#left-level-1-1").append(team);
-                });
-              });
-            </script>
-            <div class="fando-card" id="left-level-1-2">
+            <div class="fando-card top-1" id="left-level-1-1">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
                       for (let i = 0; i < 1; i++) {
                         const roundLevel = value.rounds[0];
                         for (let j = 0; j < 1; j++) {
-                          const groupLavel = roundLevel.groups[1];
+                          const groupLavel = roundLevel.groups[0];
                           team += groupLavel.GroupName;
-                          team += drawBodyStart();
+                          team +=
+                            '</div><div class="fando-card-body" id="left-level-1-1-body">';
                           for (
                             let k = 0;
                             k < groupLavel.sections[0].teamsOrdering.length;
@@ -110,7 +63,105 @@
                             const teamsOrderingLevel =
                               groupLavel.sections[0].teamsOrdering[k];
                             team +=
-                              '<div class="team type-1"><div class="team-color red"><img src="';
+                              '<div class="team type-1 card-2" id="type-1-card-1-' +
+                              (k + 1) +
+                              '" draggable="true"';
+                            team +=
+                              'ondragstart="drag1(event)" ondrop="drop1(event)" ondragover="allowDrop1(event)">';
+                            team += '<div class="team-color red"><img src="';
+                            team += teamsOrderingLevel.team[0].TeamLogo;
+                            team += '" alt=""></div>';
+                            team +=
+                              '<p class="team-name">' +
+                              teamsOrderingLevel.team[0].TeamName;
+                            +"</p>";
+                            team += "</div>";
+                          }
+                          team +=
+                            '</div><div class="fando-card-footer">' +
+                            groupLavel.TournamentVenue;
+                          var date1 = new Date(groupLavel.StartDate);
+                          var date2 = new Date(groupLavel.EndDate);
+                          team +=
+                            "<b>" +
+                            globalMonth[date1.getMonth()] +
+                            " " +
+                            date1.getDate() +
+                            " - " +
+                            date2.getDate();
+                          team += "</b></div>";
+                        }
+                      }
+                      team += "</div>";
+                    });
+                    $("#left-level-1-1").append(team);
+                  });
+                });
+
+                var dragSrcEl = null;
+
+                function drag1(e) {
+                  dragSrcEl = e.target;
+                  e.dataTransfer.effectAllowed = "move";
+                  e.dataTransfer.setData("text/html", this.innerHTML);
+                }
+
+                function allowDrop1(e) {
+                  if (e.preventDefault) {
+                    e.preventDefault();
+                  }
+
+                  e.dataTransfer.dropEffect = "move";
+
+                  return false;
+                }
+
+                function drop1(e) {
+                  if (e.stopPropagation) {
+                    e.stopPropagation(); // stops the browser from redirecting.
+                  }
+
+                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                    var sourceHTML = dragSrcEl.innerHTML;
+                    dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
+                    e.target.parentElement.innerHTML = sourceHTML;
+                  } else {
+                    return false
+                  }
+
+                  return false;
+                }
+              </script>
+            </div>
+            <div class="fando-card" id="left-level-1-2">
+              <script>
+                $(document).ready(function () {
+                  $.getJSON(jsonFile, function (data) {
+                    let team = "";
+                    $.each(data, function (key, value) {
+                      team += drawHeaderStart();
+                      for (let i = 0; i < 1; i++) {
+                        const roundLevel = value.rounds[0];
+                        for (let j = 0; j < 1; j++) {
+                          const groupLavel = roundLevel.groups[1];
+                          team += groupLavel.GroupName;
+                          team +=
+                            '</div><div class="fando-card-body" id="left-level-1-2-body">';
+                          for (
+                            let k = 0;
+                            k < groupLavel.sections[0].teamsOrdering.length;
+                            k++
+                          ) {
+                            const teamsOrderingLevel =
+                              groupLavel.sections[0].teamsOrdering[k];
+
+                            team +=
+                              '<div class="team type-1" id="type-1-card-2-' +
+                              (k + 1) +
+                              '" draggable="true"';
+                            team +=
+                              'ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">';
+                            team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
                             team +=
@@ -139,6 +190,40 @@
                     $("#left-level-1-2").append(team);
                   });
                 });
+
+                
+
+                var dragSrcEl = null;
+
+                function drag(e) {
+                  dragSrcEl = e.target;
+                  e.dataTransfer.effectAllowed = "move";
+                  e.dataTransfer.setData("text/html", this.innerHTML);
+                }
+
+                function allowDrop(e) {
+                  if (e.preventDefault) {
+                    e.preventDefault();
+                  }
+
+                  e.dataTransfer.dropEffect = "move";
+
+                  return false;
+                }
+
+                function drop(e) {
+                  if (e.stopPropagation) {
+                    e.stopPropagation(); // stops the browser from redirecting.
+                  }
+
+                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                    var sourceHTML = dragSrcEl.innerHTML;
+                    dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
+                    e.target.parentElement.innerHTML = sourceHTML;
+                  }
+
+                  return false;
+                }
               </script>
             </div>
           </div>
@@ -149,7 +234,7 @@
             <div class="fando-card top-1" id="left-level-2-1">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -158,7 +243,8 @@
                         for (let j = 0; j < 1; j++) {
                           const groupLavel = roundLevel.groups[0];
                           team += groupLavel.GroupName;
-                          team += drawBodyStart();
+                          team +=
+                            '</div><div class="fando-card-body" id="left-level-2-1-body">';
                           team +=
                             '<div class="team type-1 separator"><b>' +
                             groupLavel.sections[0].SectionName +
@@ -168,7 +254,7 @@
                             globalMonth[date1.getMonth()] +
                             " " +
                             date1.getDate();
-                          team += "</div>";
+                          team += '</div><div id="left-level-2-1-body-top">';
                           for (
                             let k = 0;
                             k < groupLavel.sections[0].teamsOrdering.length;
@@ -177,7 +263,12 @@
                             const teamsOrderingLevel =
                               groupLavel.sections[0].teamsOrdering[k];
                             team +=
-                              '<div class="team type-1"><div class="team-color red"><img src="';
+                              '<div class="team type-1" id="type-2-card-1-' +
+                              (k + 1) +
+                              '" draggable="true"';
+                            team +=
+                              'ondragstart="drag2_1(event)" ondrop="drop2_1(event)" ondragover="allowDrop2_1(event)">';
+                            team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
                             team +=
@@ -187,7 +278,7 @@
                             team += "</div>";
                           }
                           team +=
-                            '<div class="team type-1 separator"><b>' +
+                            '</div><div class="team type-1 separator"><b>' +
                             groupLavel.sections[1].SectionName +
                             "</b> -";
                           var date2 = new Date(groupLavel.sections[1].GameDate);
@@ -195,7 +286,7 @@
                             globalMonth[date2.getMonth()] +
                             " " +
                             date2.getDate();
-                          team += "</div>";
+                          team += '</div><div id="left-level-2-1-body-bottom">';
                           for (
                             let k = 0;
                             k < groupLavel.sections[1].teamsOrdering.length;
@@ -204,7 +295,12 @@
                             const teamsOrderingLevel =
                               groupLavel.sections[1].teamsOrdering[k];
                             team +=
-                              '<div class="team type-1"><div class="team-color red"><img src="';
+                              '<div class="team type-1" id="type-2-card-2-' +
+                              (k + 1) +
+                              '" draggable="true"';
+                            team +=
+                              'ondragstart="drag2_2(event)" ondrop="drop2_2(event)" ondragover="allowDrop2_2(event)">';
+                            team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
                             team +=
@@ -214,7 +310,7 @@
                             team += "</div>";
                           }
                           team +=
-                            '</div><div class="fando-card-footer"><b>' +
+                            '</div></div><div class="fando-card-footer"><b>' +
                             groupLavel.TournamentVenue +
                             "</b>";
                         }
@@ -224,6 +320,70 @@
                     $("#left-level-2-1").append(team);
                   });
                 });
+                // Swap Code
+                var dragSrcEl = null;
+
+                function drag2_1(e) {
+                  dragSrcEl = e.target;
+                  e.dataTransfer.effectAllowed = "move";
+                  e.dataTransfer.setData("text/html", this.innerHTML);
+                }
+
+                function allowDrop2_1(e) {
+                  if (e.preventDefault) {
+                    e.preventDefault();
+                  }
+
+                  e.dataTransfer.dropEffect = "move";
+
+                  return false;
+                }
+
+                function drop2_1(e) {
+                  if (e.stopPropagation) {
+                    e.stopPropagation(); // stops the browser from redirecting.
+                  }
+
+                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                    var sourceHTML = dragSrcEl.innerHTML;
+                    dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
+                    e.target.parentElement.innerHTML = sourceHTML;
+                  }
+
+                  return false;
+                }
+
+                var dragSrcEl2 = null;
+
+                function drag2_2(e) {
+                  dragSrcEl2 = e.target;
+                  e.dataTransfer.effectAllowed = "move";
+                  e.dataTransfer.setData("text/html", this.innerHTML);
+                }
+
+                function allowDrop2_2(e) {
+                  if (e.preventDefault) {
+                    e.preventDefault();
+                  }
+
+                  e.dataTransfer.dropEffect = "move";
+
+                  return false;
+                }
+
+                function drop2_2(e) {
+                  if (e.stopPropagation) {
+                    e.stopPropagation(); // stops the browser from redirecting.
+                  }
+
+                  if (dragSrcEl2 != e.target.id && dragSrcEl2.parentElement.id == e.target.parentElement.parentElement.id) {
+                    var sourceHTML = dragSrcEl2.innerHTML;
+                    dragSrcEl2.innerHTML = e.target.parentElement.innerHTML;
+                    e.target.parentElement.innerHTML = sourceHTML;
+                  }
+
+                  return false;
+                }
               </script>
             </div>
           </div>
@@ -234,7 +394,7 @@
             <div class="fando-card top-2" id="left-level-3-1">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -243,7 +403,8 @@
                         for (let j = 0; j < 1; j++) {
                           const groupLavel = roundLevel.groups[0];
                           team += groupLavel.GroupName;
-                          team += drawBodyStart();
+                          team +=
+                            '</div><div class="fando-card-body" id="left-level-3-1-body">';
                           team +=
                             '<div class="team type-1 separator"><b>' +
                             groupLavel.sections[0].SectionName +
@@ -255,7 +416,7 @@
                             globalMonth[semiFinalDate1.getMonth()] +
                             " " +
                             semiFinalDate1.getDate();
-                          team += "</div>";
+                          team += '</div><div id="left-level-3-1-top">';
                           for (
                             let k = 0;
                             k < groupLavel.sections[0].teamsOrdering.length;
@@ -264,7 +425,12 @@
                             const teamsOrderingLevel =
                               groupLavel.sections[0].teamsOrdering[k];
                             team +=
-                              '<div class="team type-1"><div class="team-color red"><img src="';
+                              '<div class="team type-1" id="type-3-1-card-1-' +
+                              (k + 1) +
+                              '" draggable="true"';
+                            team +=
+                              'ondragstart="drag3_1_1(event)" ondrop="drop3_1_1(event)" ondragover="allowDrop3_1_1(event)">';
+                            team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
                             team +=
@@ -274,7 +440,7 @@
                             team += "</div>";
                           }
                           team +=
-                            '<div class="team type-1 separator"><b>' +
+                            '</div><div class="team type-1 separator"><b>' +
                             groupLavel.sections[1].SectionName +
                             "</b> - ";
                           var semiFinalDate2 = new Date(
@@ -284,7 +450,7 @@
                             globalMonth[semiFinalDate2.getMonth()] +
                             " " +
                             semiFinalDate2.getDate();
-                          team += "</div>";
+                          team += '</div><div id="left-level-3-1-bottom">';
                           for (
                             let k = 0;
                             k < groupLavel.sections[1].teamsOrdering.length;
@@ -293,7 +459,12 @@
                             const teamsOrderingLevel =
                               groupLavel.sections[1].teamsOrdering[k];
                             team +=
-                              '<div class="team type-1"><div class="team-color red"><img src="';
+                              '<div class="team type-1" id="type-3-2-card-1-' +
+                              (k + 1) +
+                              '" draggable="true"';
+                            team +=
+                              'ondragstart="drag3_1_2(event)" ondrop="drop3_1_2(event)" ondragover="allowDrop3_1_2(event)">';
+                            team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
                             team +=
@@ -303,7 +474,7 @@
                             team += "</div>";
                           }
                           team +=
-                            '</div><div class="fando-card-footer"><b>' +
+                            '</div></div><div class="fando-card-footer"><b>' +
                             groupLavel.TournamentVenue +
                             "</b>";
                         }
@@ -313,12 +484,77 @@
                     $("#left-level-3-1").append(team);
                   });
                 });
+
+                // Swap Code
+                var dragSrcEl = null;
+
+                function drag3_1_1(e) {
+                  dragSrcEl = e.target;
+                  e.dataTransfer.effectAllowed = "move";
+                  e.dataTransfer.setData("text/html", this.innerHTML);
+                }
+
+                function allowDrop3_1_1(e) {
+                  if (e.preventDefault) {
+                    e.preventDefault();
+                  }
+
+                  e.dataTransfer.dropEffect = "move";
+
+                  return false;
+                }
+
+                function drop3_1_1(e) {
+                  if (e.stopPropagation) {
+                    e.stopPropagation(); // stops the browser from redirecting.
+                  }
+
+                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                    var sourceHTML = dragSrcEl.innerHTML;
+                    dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
+                    e.target.parentElement.innerHTML = sourceHTML;
+                  }
+
+                  return false;
+                }
+
+                var dragSrcEl2 = null;
+
+                function drag3_1_2(e) {
+                  dragSrcEl2 = e.target;
+                  e.dataTransfer.effectAllowed = "move";
+                  e.dataTransfer.setData("text/html", this.innerHTML);
+                }
+
+                function allowDrop3_1_2(e) {
+                  if (e.preventDefault) {
+                    e.preventDefault();
+                  }
+
+                  e.dataTransfer.dropEffect = "move";
+
+                  return false;
+                }
+
+                function drop3_1_2(e) {
+                  if (e.stopPropagation) {
+                    e.stopPropagation(); // stops the browser from redirecting.
+                  }
+
+                  if (dragSrcEl2 != e.target.id && dragSrcEl2.parentElement.id == e.target.parentElement.parentElement.id) {
+                    var sourceHTML = dragSrcEl2.innerHTML;
+                    dragSrcEl2.innerHTML = e.target.parentElement.innerHTML;
+                    e.target.parentElement.innerHTML = sourceHTML;
+                  }
+
+                  return false;
+                }
               </script>
             </div>
             <div class="fando-card top-1" id="left-level-3-2">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -327,7 +563,8 @@
                         for (let j = 0; j < 1; j++) {
                           const groupLavel = roundLevel.groups[0];
                           team += groupLavel.GroupName;
-                          team += drawBodyStart();
+                          team +=
+                            '</div><div class="fando-card-body" id="left-level-3-2-body">';
                           for (
                             let k = 0;
                             k < groupLavel.sections[0].teamsOrdering.length;
@@ -336,7 +573,12 @@
                             const teamsOrderingLevel =
                               groupLavel.sections[0].teamsOrdering[k];
                             team +=
-                              '<div class="team type-1"><div class="team-color red"><img src="';
+                              '<div class="team type-1" id="type-3-3-card-1-' +
+                              (k + 1) +
+                              '" draggable="true"';
+                            team +=
+                              'ondragstart="drag3_2(event)" ondrop="drop3_2(event)" ondragover="allowDrop3_2(event)">';
+                            team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
                             team +=
@@ -348,11 +590,13 @@
                           team +=
                             '</div><div class="fando-card-footer">' +
                             groupLavel.TournamentVenue;
-                            var date1 = new Date(groupLavel.StartDate);
-                        var date2 = new Date(groupLavel.EndDate);
-                        team +=
-                          "<b>" +
-                            globalMonth[date1.getMonth()] + ' ' + date1.getDate();
+                          var date1 = new Date(groupLavel.StartDate);
+                          var date2 = new Date(groupLavel.EndDate);
+                          team +=
+                            "<b>" +
+                            globalMonth[date1.getMonth()] +
+                            " " +
+                            date1.getDate();
                           team += "</b></div>";
                         }
                       }
@@ -361,6 +605,39 @@
                     $("#left-level-3-2").append(team);
                   });
                 });
+
+                // Swap Code
+                var dragSrcEl = null;
+
+                function drag3_2(e) {
+                  dragSrcEl = e.target;
+                  e.dataTransfer.effectAllowed = "move";
+                  e.dataTransfer.setData("text/html", this.innerHTML);
+                }
+
+                function allowDrop3_2(e) {
+                  if (e.preventDefault) {
+                    e.preventDefault();
+                  }
+
+                  e.dataTransfer.dropEffect = "move";
+
+                  return false;
+                }
+
+                function drop3_2(e) {
+                  if (e.stopPropagation) {
+                    e.stopPropagation(); // stops the browser from redirecting.
+                  }
+
+                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                    var sourceHTML = dragSrcEl.innerHTML;
+                    dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
+                    e.target.parentElement.innerHTML = sourceHTML;
+                  }
+
+                  return false;
+                }
               </script>
             </div>
           </div>
@@ -371,7 +648,7 @@
             <div class="fando-card top-1" id="left-level-4-1">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -380,7 +657,8 @@
                         for (let j = 0; j < 1; j++) {
                           const groupLavel = roundLevel.groups[1];
                           team += groupLavel.GroupName;
-                          team += drawBodyStart();
+                          team +=
+                            '</div><div class="fando-card-body" id="left-level-4-1-body">';
                           team +=
                             '<div class="team type-1 separator"><b>' +
                             groupLavel.sections[0].SectionName +
@@ -390,7 +668,7 @@
                             globalMonth[date1.getMonth()] +
                             " " +
                             date1.getDate();
-                          team += "</div>";
+                          team += '</div><div id="left-level-4-top">';
                           for (
                             let k = 0;
                             k < groupLavel.sections[0].teamsOrdering.length;
@@ -399,7 +677,12 @@
                             const teamsOrderingLevel =
                               groupLavel.sections[0].teamsOrdering[k];
                             team +=
-                              '<div class="team type-1"><div class="team-color red"><img src="';
+                              '<div class="team type-1" id="type-4-card-1-' +
+                              (k + 1) +
+                              '" draggable="true"';
+                            team +=
+                              'ondragstart="drag4_1(event)" ondrop="drop4_1(event)" ondragover="allowDrop4_1(event)">';
+                            team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
                             team +=
@@ -409,7 +692,7 @@
                             team += "</div>";
                           }
                           team +=
-                            '<div class="team type-1 separator"><b>' +
+                            '</div><div class="team type-1 separator"><b>' +
                             groupLavel.sections[1].SectionName +
                             "</b> - ";
                           var date2 = new Date(groupLavel.sections[1].GameDate);
@@ -417,7 +700,7 @@
                             globalMonth[date2.getMonth()] +
                             " " +
                             date2.getDate();
-                          team += "</div>";
+                          team += '</div><div id="left-level-4-bottom">';
                           for (
                             let k = 0;
                             k < groupLavel.sections[1].teamsOrdering.length;
@@ -426,7 +709,12 @@
                             const teamsOrderingLevel =
                               groupLavel.sections[1].teamsOrdering[k];
                             team +=
-                              '<div class="team type-1"><div class="team-color red"><img src="';
+                              '<div class="team type-1" id="type-4-card-2-' +
+                              (k + 1) +
+                              '" draggable="true"';
+                            team +=
+                              'ondragstart="drag4_2(event)" ondrop="drop4_2(event)" ondragover="allowDrop4_2(event)">';
+                            team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
                             team +=
@@ -436,7 +724,7 @@
                             team += "</div>";
                           }
                           team +=
-                            '</div><div class="fando-card-footer"><b>' +
+                            '</div></div><div class="fando-card-footer"><b>' +
                             groupLavel.TournamentVenue +
                             "</b>";
                         }
@@ -446,6 +734,71 @@
                     $("#left-level-4-1").append(team);
                   });
                 });
+
+                // Swap Code
+                var dragSrcEl = null;
+
+                function drag4_1(e) {
+                  dragSrcEl = e.target;
+                  e.dataTransfer.effectAllowed = "move";
+                  e.dataTransfer.setData("text/html", this.innerHTML);
+                }
+
+                function allowDrop4_1(e) {
+                  if (e.preventDefault) {
+                    e.preventDefault();
+                  }
+
+                  e.dataTransfer.dropEffect = "move";
+
+                  return false;
+                }
+
+                function drop4_1(e) {
+                  if (e.stopPropagation) {
+                    e.stopPropagation(); // stops the browser from redirecting.
+                  }
+
+                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                    var sourceHTML = dragSrcEl.innerHTML;
+                    dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
+                    e.target.parentElement.innerHTML = sourceHTML;
+                  }
+
+                  return false;
+                }
+
+                var dragSrcEl2 = null;
+
+                function drag4_2(e) {
+                  dragSrcEl2 = e.target;
+                  e.dataTransfer.effectAllowed = "move";
+                  e.dataTransfer.setData("text/html", this.innerHTML);
+                }
+
+                function allowDrop4_2(e) {
+                  if (e.preventDefault) {
+                    e.preventDefault();
+                  }
+
+                  e.dataTransfer.dropEffect = "move";
+
+                  return false;
+                }
+
+                function drop4_2(e) {
+                  if (e.stopPropagation) {
+                    e.stopPropagation(); // stops the browser from redirecting.
+                  }
+
+                  if (dragSrcEl2 != e.target.id && dragSrcEl2.parentElement.id == e.target.parentElement.parentElement.id) {
+                    var sourceHTML = dragSrcEl2.innerHTML;
+                    dragSrcEl2.innerHTML = e.target.parentElement.innerHTML;
+                    e.target.parentElement.innerHTML = sourceHTML;
+                  }
+
+                  return false;
+                }
               </script>
             </div>
           </div>
@@ -456,7 +809,7 @@
             <div class="fando-card right-1" id="left-level-5-1">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -465,7 +818,8 @@
                         for (let j = 0; j < 1; j++) {
                           const groupLavel = roundLevel.groups[2];
                           team += groupLavel.GroupName;
-                          team += drawBodyStart();
+                          team +=
+                            '</div><div class="fando-card-body" id="left-level-5-1-body">';
                           for (
                             let k = 0;
                             k < groupLavel.sections[0].teamsOrdering.length;
@@ -474,7 +828,12 @@
                             const teamsOrderingLevel =
                               groupLavel.sections[0].teamsOrdering[k];
                             team +=
-                              '<div class="team type-1"><div class="team-color red"><img src="';
+                              '<div class="team type-1 card-2" id="type-5-card-1-' +
+                              (k + 1) +
+                              '" draggable="true"';
+                            team +=
+                              'ondragstart="drag5_1(event)" ondrop="drop5_1(event)" ondragover="allowDrop5_1(event)">';
+                            team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
                             team +=
@@ -503,12 +862,46 @@
                     $("#left-level-5-1").append(team);
                   });
                 });
+
+                var dragSrcEl = null;
+
+                function drag5_1(e) {
+                  dragSrcEl = e.target;
+                  e.dataTransfer.effectAllowed = "move";
+                  e.dataTransfer.setData("text/html", this.innerHTML);
+                }
+
+                function allowDrop5_1(e) {
+                  if (e.preventDefault) {
+                    e.preventDefault();
+                  }
+
+                  e.dataTransfer.dropEffect = "move";
+
+                  return false;
+                }
+
+                function drop5_1(e) {
+                  if (e.stopPropagation) {
+                    e.stopPropagation(); // stops the browser from redirecting.
+                  }
+
+                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                    var sourceHTML = dragSrcEl.innerHTML;
+                    dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
+                    e.target.parentElement.innerHTML = sourceHTML;
+                  } else {
+                    alert("Sorry ! Team swap is not allowed with another pool")
+                  }
+
+                  return false;
+                }
               </script>
             </div>
             <div class="fando-card" id="left-level-5-2">
               <script>
                 $(document).ready(function () {
-                  $.getJSON("TuSeleccion.json", function (data) {
+                  $.getJSON(jsonFile, function (data) {
                     let team = "";
                     $.each(data, function (key, value) {
                       team += drawHeaderStart();
@@ -517,7 +910,8 @@
                         for (let j = 0; j < 1; j++) {
                           const groupLavel = roundLevel.groups[3];
                           team += groupLavel.GroupName;
-                          team += drawBodyStart();
+                          team +=
+                            '</div><div class="fando-card-body" id="left-level-5-2-body">';
                           for (
                             let k = 0;
                             k < groupLavel.sections[0].teamsOrdering.length;
@@ -526,7 +920,12 @@
                             const teamsOrderingLevel =
                               groupLavel.sections[0].teamsOrdering[k];
                             team +=
-                              '<div class="team type-1"><div class="team-color red"><img src="';
+                              '<div class="team type-1 card-2" id="type-5-card-2-' +
+                              (k + 1) +
+                              '" draggable="true"';
+                            team +=
+                              'ondragstart="drag5_2(event)" ondrop="drop5_2(event)" ondragover="allowDrop5_2(event)">';
+                            team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
                             team +=
@@ -555,11 +954,49 @@
                     $("#left-level-5-2").append(team);
                   });
                 });
+
+                var dragSrcEl = null;
+
+                function drag5_2(e) {
+                  dragSrcEl = e.target;
+                  e.dataTransfer.effectAllowed = "move";
+                  e.dataTransfer.setData("text/html", this.innerHTML);
+                }
+
+                function allowDrop5_2(e) {
+                  if (e.preventDefault) {
+                    e.preventDefault();
+                  }
+
+                  e.dataTransfer.dropEffect = "move";
+
+                  return false;
+                }
+
+                function drop5_2(e) {
+                  if (e.stopPropagation) {
+                    e.stopPropagation(); // stops the browser from redirecting.
+                  }
+
+                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                    var sourceHTML = dragSrcEl.innerHTML;
+                    dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
+                    e.target.parentElement.innerHTML = sourceHTML;
+                  } else {
+                    alert("Sorry ! Team swap is not allowed with another pool")
+                  }
+
+                  return false;
+                }
               </script>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <script src="/script.js"></script>
+    <!-- <script>
+    alert($('#left-level-4-1-body').innerHTML)
+  </script> -->
   </body>
 </html>

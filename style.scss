@@ -164,12 +164,12 @@ body * {
                 padding: 7px 11px;
                 border-bottom: 0.7px solid #dfdfdf;
                 max-height: 30px;
-                &.separator{
+                &.separator {
                   font-size: 12px;
                   font-weight: 500;
                   justify-content: center;
                   background-color: #f2f2f2;
-                  b{
+                  b {
                     color: #213c73;
                     font-weight: 700;
                   }
@@ -186,7 +186,7 @@ body * {
                   justify-content: center;
                   box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.25);
                   background-color: transparent !important;
-                  > img{
+                  > img {
                     width: 100%;
                     height: 100%;
                     border-radius: 2px;
@@ -208,9 +208,14 @@ body * {
                   }
                 }
                 .team-name {
+                  text-align: left;
                   margin-bottom: 0;
                   font-size: 12px;
                   font-weight: 700;
+                  width: 135px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
                 }
               }
             }
@@ -232,7 +237,7 @@ body * {
         &.middle {
           .fando-card {
             max-width: 200px;
-            &.top-2{
+            &.top-2 {
               margin-top: 75px;
             }
             &.top-1,
@@ -250,7 +255,7 @@ body * {
                 border-left: 1px solid black;
               }
               .fando-card-body {
-                > div {
+                > .team.type-1 {
                   display: flex;
                   align-items: center;
                   .team {
@@ -294,4 +299,8 @@ body * {
       }
     }
   }
+}
+
+[draggable] {
+  user-select: none;
 }

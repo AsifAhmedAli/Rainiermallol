@@ -213,9 +213,14 @@ body * {
   background-color: #e189f8;
 }
 .teams-map > .row > .col .box .fando-card .fando-card-body .team.type-1 .team-name {
+  text-align: left;
   margin-bottom: 0;
   font-size: 12px;
   font-weight: 700;
+  width: 135px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .teams-map > .row > .col .box .fando-card .fando-card-footer {
   padding: 10px;
@@ -250,11 +255,11 @@ body * {
   z-index: 7;
   border-left: 1px solid black;
 }
-.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > div {
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > .team.type-1, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > .team.type-1 {
   display: flex;
   align-items: center;
 }
-.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .team, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > div .team {
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > .team.type-1 .team, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > .team.type-1 .team {
   flex-direction: column;
   align-items: center;
   padding-top: 1rem;
@@ -263,13 +268,13 @@ body * {
   max-height: unset;
   border-bottom: none;
 }
-.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .team .team-name, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > div .team .team-name {
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > .team.type-1 .team .team-name, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > .team.type-1 .team .team-name {
   white-space: nowrap;
 }
-.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .team .team-color, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > div .team .team-color {
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > .team.type-1 .team .team-color, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > .team.type-1 .team .team-color {
   margin-right: 0;
 }
-.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > div .vs, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > div .vs {
+.teams-map > .row > .col .box.middle .fando-card.top-1 .fando-card-body > .team.type-1 .vs, .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > .team.type-1 .vs {
   color: #213c73;
   font-size: 12px;
   font-weight: 800;
@@ -280,6 +285,10 @@ body * {
 }
 .teams-map > .row > .col .box.middle .fando-card.top-2 .fando-card-body > div:first-child {
   border-bottom: 1px solid #dfdfdf;
+}
+
+[draggable] {
+  user-select: none;
 }
 
 /*# sourceMappingURL=style.css.map */
