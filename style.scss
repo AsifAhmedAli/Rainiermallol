@@ -303,4 +303,14 @@ body * {
 
 [draggable] {
   user-select: none;
+  .team-name{
+    cursor: grab;
+    &:active{
+      cursor: grabbing;
+    }
+  }
+}
+
+.task-hover {
+  border: 3px dashed #000 !important;
 }

@@ -67,7 +67,7 @@
                               (k + 1) +
                               '" draggable="true"';
                             team +=
-                              'ondragstart="drag1(event)" ondrop="drop1(event)" ondragover="allowDrop1(event)">';
+                              'ondragstart="drag1(event)" ondrop="drop1(event)" ondragover="allowDrop1(event)" ondragenter="dragEnter1(event)" ondragleave="dragLeave1(event)" ondragend="dragEnd1(event)">';
                             team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
@@ -99,6 +99,26 @@
                 });
 
                 var dragSrcEl = null;
+                function dragEnter1(e) {
+                  if (
+                    !e.target.parentElement.classList.contains(
+                      "fando-card-body"
+                    ) &&
+                    e.target.parentElement.id != dragSrcEl.id
+                  ) {
+                    e.target.parentElement.classList.add("task-hover");
+                  }
+                }
+
+                function dragLeave1(e) {
+                  e.target.parentElement.classList.remove("task-hover");
+                }
+
+                function dragEnd1(e) {
+                  dragSrcEl.style.opacity = "1";
+
+                  $(".task-hover").removeClass("task-hover");
+                }
 
                 function drag1(e) {
                   dragSrcEl = e.target;
@@ -121,12 +141,16 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                  if (
+                    dragSrcEl != e.target.id &&
+                    dragSrcEl.parentElement.id ==
+                      e.target.parentElement.parentElement.id
+                  ) {
                     var sourceHTML = dragSrcEl.innerHTML;
                     dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
                   } else {
-                    return false
+                    return false;
                   }
 
                   return false;
@@ -160,7 +184,7 @@
                               (k + 1) +
                               '" draggable="true"';
                             team +=
-                              'ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">';
+                              'ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)" ondragend="dragEnd(event)">';
                             team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
@@ -191,9 +215,28 @@
                   });
                 });
 
-                
-
                 var dragSrcEl = null;
+
+                function dragEnter(e) {
+                  if (
+                    !e.target.parentElement.classList.contains(
+                      "fando-card-body"
+                    ) &&
+                    e.target.parentElement.id != dragSrcEl.id
+                  ) {
+                    e.target.parentElement.classList.add("task-hover");
+                  }
+                }
+
+                function dragLeave(e) {
+                  e.target.parentElement.classList.remove("task-hover");
+                }
+
+                function dragEnd(e) {
+                  dragSrcEl.style.opacity = "1";
+
+                  $(".task-hover").removeClass("task-hover");
+                }
 
                 function drag(e) {
                   dragSrcEl = e.target;
@@ -216,7 +259,11 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                  if (
+                    dragSrcEl != e.target.id &&
+                    dragSrcEl.parentElement.id ==
+                      e.target.parentElement.parentElement.id
+                  ) {
                     var sourceHTML = dragSrcEl.innerHTML;
                     dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
@@ -267,7 +314,7 @@
                               (k + 1) +
                               '" draggable="true"';
                             team +=
-                              'ondragstart="drag2_1(event)" ondrop="drop2_1(event)" ondragover="allowDrop2_1(event)">';
+                              'ondragstart="drag2_1(event)" ondrop="drop2_1(event)" ondragover="allowDrop2_1(event)" ondragenter="dragEnter2_1(event)" ondragleave="dragLeave2_1(event)" ondragend="dragEnd2_1(event)">';
                             team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
@@ -299,7 +346,7 @@
                               (k + 1) +
                               '" draggable="true"';
                             team +=
-                              'ondragstart="drag2_2(event)" ondrop="drop2_2(event)" ondragover="allowDrop2_2(event)">';
+                              'ondragstart="drag2_2(event)" ondrop="drop2_2(event)" ondragover="allowDrop2_2(event)" ondragenter="dragEnter2_2(event)" ondragleave="dragLeave2_2(event)" ondragend="dragEnd2_2(event)">';
                             team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
@@ -322,6 +369,24 @@
                 });
                 // Swap Code
                 var dragSrcEl = null;
+                function dragEnter2_1(e) {
+                  if (
+                    e.target.id == "left-level-2-1-body-top" &&
+                    e.target.parentElement.id != dragSrcEl.id
+                  ) {
+                    e.target.parentElement.classList.add("task-hover");
+                  }
+                }
+
+                function dragLeave2_1(e) {
+                  e.target.parentElement.classList.remove("task-hover");
+                }
+
+                function dragEnd2_1(e) {
+                  dragSrcEl.style.opacity = "1";
+
+                  $(".task-hover").removeClass("task-hover");
+                }
 
                 function drag2_1(e) {
                   dragSrcEl = e.target;
@@ -344,7 +409,11 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                  if (
+                    dragSrcEl != e.target.id &&
+                    dragSrcEl.parentElement.id ==
+                      e.target.parentElement.parentElement.id
+                  ) {
                     var sourceHTML = dragSrcEl.innerHTML;
                     dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
@@ -354,6 +423,24 @@
                 }
 
                 var dragSrcEl2 = null;
+                function dragEnter2_2(e) {
+                  if (
+                    e.target.id == "left-level-2-1-body-bottom" &&
+                    e.target.parentElement.id != dragSrcEl.id
+                  ) {
+                    e.target.parentElement.classList.add("task-hover");
+                  }
+                }
+
+                function dragLeave2_2(e) {
+                  e.target.parentElement.classList.remove("task-hover");
+                }
+
+                function dragEnd2_2(e) {
+                  dragSrcEl.style.opacity = "1";
+
+                  $(".task-hover").removeClass("task-hover");
+                }
 
                 function drag2_2(e) {
                   dragSrcEl2 = e.target;
@@ -376,7 +463,11 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl2 != e.target.id && dragSrcEl2.parentElement.id == e.target.parentElement.parentElement.id) {
+                  if (
+                    dragSrcEl2 != e.target.id &&
+                    dragSrcEl2.parentElement.id ==
+                      e.target.parentElement.parentElement.id
+                  ) {
                     var sourceHTML = dragSrcEl2.innerHTML;
                     dragSrcEl2.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
@@ -509,7 +600,11 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                  if (
+                    dragSrcEl != e.target.id &&
+                    dragSrcEl.parentElement.id ==
+                      e.target.parentElement.parentElement.id
+                  ) {
                     var sourceHTML = dragSrcEl.innerHTML;
                     dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
@@ -541,7 +636,11 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl2 != e.target.id && dragSrcEl2.parentElement.id == e.target.parentElement.parentElement.id) {
+                  if (
+                    dragSrcEl2 != e.target.id &&
+                    dragSrcEl2.parentElement.id ==
+                      e.target.parentElement.parentElement.id
+                  ) {
                     var sourceHTML = dragSrcEl2.innerHTML;
                     dragSrcEl2.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
@@ -630,7 +729,11 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                  if (
+                    dragSrcEl != e.target.id &&
+                    dragSrcEl.parentElement.id ==
+                      e.target.parentElement.parentElement.id
+                  ) {
                     var sourceHTML = dragSrcEl.innerHTML;
                     dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
@@ -759,7 +862,11 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                  if (
+                    dragSrcEl != e.target.id &&
+                    dragSrcEl.parentElement.id ==
+                      e.target.parentElement.parentElement.id
+                  ) {
                     var sourceHTML = dragSrcEl.innerHTML;
                     dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
@@ -791,7 +898,11 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl2 != e.target.id && dragSrcEl2.parentElement.id == e.target.parentElement.parentElement.id) {
+                  if (
+                    dragSrcEl2 != e.target.id &&
+                    dragSrcEl2.parentElement.id ==
+                      e.target.parentElement.parentElement.id
+                  ) {
                     var sourceHTML = dragSrcEl2.innerHTML;
                     dragSrcEl2.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
@@ -886,12 +997,16 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                  if (
+                    dragSrcEl != e.target.id &&
+                    dragSrcEl.parentElement.id ==
+                      e.target.parentElement.parentElement.id
+                  ) {
                     var sourceHTML = dragSrcEl.innerHTML;
                     dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
                   } else {
-                    alert("Sorry ! Team swap is not allowed with another pool")
+                    alert("Sorry ! Team swap is not allowed with another pool");
                   }
 
                   return false;
@@ -978,12 +1093,16 @@
                     e.stopPropagation(); // stops the browser from redirecting.
                   }
 
-                  if (dragSrcEl != e.target.id && dragSrcEl.parentElement.id == e.target.parentElement.parentElement.id) {
+                  if (
+                    dragSrcEl != e.target.id &&
+                    dragSrcEl.parentElement.id ==
+                      e.target.parentElement.parentElement.id
+                  ) {
                     var sourceHTML = dragSrcEl.innerHTML;
                     dragSrcEl.innerHTML = e.target.parentElement.innerHTML;
                     e.target.parentElement.innerHTML = sourceHTML;
                   } else {
-                    alert("Sorry ! Team swap is not allowed with another pool")
+                    alert("Sorry ! Team swap is not allowed with another pool");
                   }
 
                   return false;

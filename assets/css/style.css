@@ -290,5 +290,15 @@ body * {
 [draggable] {
   user-select: none;
 }
+[draggable] .team-name {
+  cursor: grab;
+}
+[draggable] .team-name:active {
+  cursor: grabbing;
+}
+
+.task-hover {
+  border: 3px dashed #000 !important;
+}
 
 /*# sourceMappingURL=style.css.map */
