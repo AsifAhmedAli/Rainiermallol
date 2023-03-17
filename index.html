@@ -511,7 +511,7 @@
                             globalMonth[semiFinalDate1.getMonth()] +
                             " " +
                             semiFinalDate1.getDate();
-                          team += '</div><div id="left-level-3-1-top">';
+                          team += '</div><div id="left-level-3-1-top" class="fando-card-body-top">';
                           for (
                             let k = 0;
                             k < groupLavel.sections[0].teamsOrdering.length;
@@ -524,7 +524,7 @@
                               (k + 1) +
                               '" draggable="true"';
                             team +=
-                              'ondragstart="drag3_1_1(event)" ondrop="drop3_1_1(event)" ondragover="allowDrop3_1_1(event)">';
+                              'ondragstart="drag3_1_1(event)" ondrop="drop3_1_1(event)" ondragover="allowDrop3_1_1(event)" ondragenter="dragEnter3_1_1(event)" ondragleave="dragLeave3_1_1(event)" ondragend="dragEnd3_1_1(event)">';
                             team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
@@ -545,7 +545,7 @@
                             globalMonth[semiFinalDate2.getMonth()] +
                             " " +
                             semiFinalDate2.getDate();
-                          team += '</div><div id="left-level-3-1-bottom">';
+                          team += '</div><div id="left-level-3-1-bottom" class="fando-card-body-bottom">';
                           for (
                             let k = 0;
                             k < groupLavel.sections[1].teamsOrdering.length;
@@ -558,7 +558,7 @@
                               (k + 1) +
                               '" draggable="true"';
                             team +=
-                              'ondragstart="drag3_1_2(event)" ondrop="drop3_1_2(event)" ondragover="allowDrop3_1_2(event)">';
+                              'ondragstart="drag3_1_2(event)" ondrop="drop3_1_2(event)" ondragover="allowDrop3_1_2(event)" ondragenter="dragEnter3_1_2(event)" ondragleave="dragLeave3_1_2(event)" ondragend="dragEnd3_1_2(event)">';
                             team += '<div class="team-color red"><img src="';
                             team += teamsOrderingLevel.team[0].TeamLogo;
                             team += '" alt=""></div>';
@@ -582,6 +582,26 @@
 
                 // Swap Code
                 var dragSrcEl = null;
+                function dragEnter3_1_1(e) {
+                  if (
+                    !e.target.parentElement.classList.contains(
+                      "fando-card-body-top"
+                    ) &&
+                    e.target.parentElement.id != dragSrcEl.id
+                  ) {
+                    e.target.parentElement.classList.add("task-hover");
+                  }
+                }
+
+                function dragLeave3_1_1(e) {
+                  e.target.parentElement.classList.remove("task-hover");
+                }
+
+                function dragEnd3_1_1(e) {
+                  dragSrcEl.style.opacity = "1";
+
+                  $(".task-hover").removeClass("task-hover");
+                }
 
                 function drag3_1_1(e) {
                   dragSrcEl = e.target;
@@ -618,6 +638,26 @@
                 }
 
                 var dragSrcEl2 = null;
+                function dragEnter3_1_2(e) {
+                  if (
+                    !e.target.parentElement.classList.contains(
+                      "fando-card-body-bottom"
+                    ) &&
+                    e.target.parentElement.id != dragSrcEl2.id
+                  ) {
+                    e.target.parentElement.classList.add("task-hover");
+                  }
+                }
+
+                function dragLeave3_1_2(e) {
+                  e.target.parentElement.classList.remove("task-hover");
+                }
+
+                function dragEnd3_1_2(e) {
+                  dragSrcEl2.style.opacity = "1";
+
+                  $(".task-hover").removeClass("task-hover");
+                }
 
                 function drag3_1_2(e) {
                   dragSrcEl2 = e.target;
